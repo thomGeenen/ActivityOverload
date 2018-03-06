@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="../assets/styles/style.css">
+
+<div class="container custom-container">
+  <form action="/user/create" method="POST" class="form-group form-signin" id="form sign-up-form">
+    <h2>Create an Account</h2>
+
+    <% if(flash && flash.err) { %>
+      <ul class="alert alert-success">
+        <% Object.keys(flash.err).forEach((err) => { %>
+          <li><%- JSON.stringify(flash.err[err]) %></li>
+       <% }); %>
+      </ul>
+    <%  }  %>
+
+
+    <div class="control-group">
+      <input type="text" name="name" id="name" placeholder="Your Name !" class="form-control" />
+    </div>
+
+    <div class="control-group">
+      <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" />
+    </div>
+
+    <div class="control-group">
+      <input type="text" name="title" id="title" placeholder="You're Title" class="form-control" />
+    </div>
+
+    <div class="control-group">
+      <input type="password" name="pass" id="pass" placeholder="*********" class="form-control" />
+    </div>
+
+    <div class="control-group">
+      <input type="password" name="encryptedPass" id="encryptedPass" placeholder="************" class="form-control" />
+    </div>
+
+    <input type="submit" value="Sign Up" class="btn btn-primary" />
+    <a href="/" class="btn btn-secondary">Cancel</a>
+
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+  </form>
+</div>

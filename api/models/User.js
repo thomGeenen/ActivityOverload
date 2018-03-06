@@ -32,7 +32,19 @@ module.exports = {
   },
 
 
-  schema: true
+  schema: true,
+
+  'beforeCreate': (values ,next) => {
+    if(!values.pass && values.pass != values.encryptedPass) {
+      return next({ err: ["Password doesn't match the confirmation"] });
+    }
+
+    require('bcrypt').hash(values.pass, 10, (err, hashedData) => {
+      if(err) return sails.log(err);
+      values.encryptedPass = hashedData;
+      next();
+    })
+  }
 
 
 };

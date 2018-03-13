@@ -9,7 +9,7 @@
 module.exports = {
     
     'signup': (req,res) => {
-        res.view('signup');
+        res.view('user/signup');
     },
 
     'create': (req,res) => {
@@ -31,14 +31,14 @@ module.exports = {
         User.findOne({id: req.params.id}, (err, user) => {
             if(err) return sails.log(err);
             if(!user) return sails.log(err);
-            res.view('show', { user:user });
+            res.view('user/show', { user:user });
         });
     },
 
     'index': (req, res, next) => {
         User.find((err, users) => {
             if(err) return next(err);
-            res.view('index', { users: users });
+            res.view('user/index', { users: users });
         });
     },
 
@@ -46,7 +46,7 @@ module.exports = {
     'edit': (req,res,next) => {
         User.findOne({id: req.param('id')}, (err, user) => {
             if(err) return sails.log(err);
-            res.view('edit', { user: user});
+            res.view('user/edit', { user: user});
             console.log(user);
         });
     },
@@ -65,6 +65,6 @@ module.exports = {
         User.destroy({id: req.param('id')}).exec((err) => {
             if(err) return sails.log(err);
             res.redirect('/user/index');
-        })
+        });
     }
 };
